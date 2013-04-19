@@ -1,0 +1,12 @@
+<% if servico.new_record? %>
+	<b>Usuário logado:</b> <%= link_to current_admin_user.nome, "#" %><br>
+	<b>Data do sistema:</b> <%= I18n.l(DateTime.now(), :format => :long) %><br>
+<% else %>
+	<b>Usuário logado:</b> <%= link_to current_admin_user.nome, "#" %><br>
+	<b>Data da emissão:</b> <%= I18n.l(servico.created_at, :format => :long) %><br>
+	<b>Data da última alteração:</b> <%= I18n.l(servico.updated_at, :format => :long) %><br>
+	<b>Quem criou?:</b> <%= servico.admin_user.nome %><br>
+	<% unless servico.data_saida.blank? %>
+		<b>Data da saída:</b> <%= I18n.l(servico.data_saida, :format => :long) %><br>
+	<% end %>
+<% end %>
