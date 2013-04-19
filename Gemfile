@@ -10,11 +10,11 @@ gem 'prawn', :git => 'https://github.com/prawnpdf/prawn.git'
 gem 'sqlite3', '1.3.7'
 gem "pg", "~> 0.15.1"
 gem 'unicorn'
-#gem 'jquery-rails'
+gem 'turbolinks'
 
 group :development do
-	gem 'better_errors'
-	gem 'binding_of_caller'
+	#gem 'better_errors'
+	#gem 'binding_of_caller'
   	#gem 'mechanize'
   	#gem 'sqlite3-ruby', :require => 'sqlite3'
 end
@@ -24,10 +24,9 @@ end
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  #gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier', '>= 1.0.3'
 end
-
-
+gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
