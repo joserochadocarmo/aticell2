@@ -1,14 +1,16 @@
 ---
 computador.jpg: computador-1be86aa3bcb146dcd6828ab731fba40c.jpg
 computador/index.jpg: computador-1be86aa3bcb146dcd6828ab731fba40c.jpg
+favicon.ico: favicon-28e3adc484d835fc7435009f1f588ea6.ico
+favicon/index.ico: favicon-28e3adc484d835fc7435009f1f588ea6.ico
 galaxy.jpg: galaxy-a12a99edf3f3e25e568875190fed8611.jpg
 galaxy/index.jpg: galaxy-a12a99edf3f3e25e568875190fed8611.jpg
 rails.png: rails-a3386665c05a2d82f711a4aaa72d247c.png
 rails/index.png: rails-a3386665c05a2d82f711a4aaa72d247c.png
 active_admin.js: active_admin-74c5a2a0ebd04577979929732488c14b.js
 active_admin/index.js: active_admin-74c5a2a0ebd04577979929732488c14b.js
-application.js: application-055ac13a74228993ed96af6b3f8ba70b.js
-application/index.js: application-055ac13a74228993ed96af6b3f8ba70b.js
+application.js: application-73197d470a1fb4e8ae3facacc1e14c33.js
+application/index.js: application-73197d470a1fb4e8ae3facacc1e14c33.js
 active_admin.css: active_admin-f6eab3903eabe26e294bb5e070593cb6.css
 active_admin/index.css: active_admin-f6eab3903eabe26e294bb5e070593cb6.css
 application.css: application-2977d906fde78371da650a3a5c63b1ff.css

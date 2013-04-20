@@ -1,6 +1,3 @@
-
-<%= javascript_include_tag :cocoon %>
-<%= javascript_include_tag "jquery.maskMoney" %>
 <script type="text/javascript">
     // execute script only when DOM has finished loading
     $(document).ready(function() {
@@ -46,7 +43,8 @@
             $(this).val('');
           }
           prices[i] = isNaN(elem.value) ? 0 : elem.value;
-          $(this).val(parseFloat(elem.value).toFixed(2));
+          if(prices[i]!='')
+            $(this).val(parseFloat(prices[i]).toFixed(2));
         });
 
         $('[class$="subtotal"]').each(function(i,elem) {
