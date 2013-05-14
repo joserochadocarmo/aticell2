@@ -1,14 +1,5 @@
 # coding: utf-8
 ActiveAdmin.register AdminUser, :as => "Usuario" do
-
-  #controller.authorize_resource :class => AdminUser    
-
-  #controller do
-  #  include ActiveAdminCanCan
-  #end
- 
-  # add this call - it will show only allowed action items
-  #active_admin_allowed_action_items
   
   menu :if => proc{admin?}
   menu :label => "Usuários"

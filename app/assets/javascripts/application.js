@@ -15,4 +15,16 @@
 //= require turbolinks
 //= require cocoon
 //= require "jquery.maskMoney"
+//= reqire loading_spinner
 // require_tree .
+
+$(document).ready(function() {	
+	$(document).on('page:fetch', function() {
+		var loading= "<div style='position: fixed; right: 20px; bottom: 20px; z-index: 100000;' id='loading' class='status_tag warning'>Loading...</div>";
+		$('body div#title_bar').append(loading);	
+	  	$("#loading").show();
+	});
+	$(document).on('page:change', function() {
+	  $("#loading").hide();
+	});
+});

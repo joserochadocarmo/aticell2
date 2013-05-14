@@ -12,7 +12,7 @@ ActiveAdmin.register_page "Dashboard" do
             column("Tipo"){|servico| servico.tipos.capitalize } 
             column("Nome do Cliente"){|servico|  link_to(servico.nome.capitalize,aticell_servico_path(servico)) } 
             column("Status")   {|servico| 
-              if servico.status.blank?
+              if servico.status=='AGUARDANDO'
                 status_tag("aguardando") 
               elsif  servico.status=="CONCLUIDO"
                 status_tag("CONCLUÍDO",:ok)
@@ -32,9 +32,9 @@ ActiveAdmin.register_page "Dashboard" do
             column("Nome Cliente"){|servico| h4  link_to(servico.nome.capitalize, aticell_servico_path(servico)) } 
             
             column("Status")   {|servico| 
-              if servico.status==""
-                status_tag("---------") 
-              elseif  servico.status=="CONCLUIDO"
+              if servico.status=="AGUARDANDO"
+                status_tag('aguardando') 
+              elsif  servico.status=="CONCLUIDO"
                 status_tag("CONCLUÍDO",:ok)
               else
                  status_tag("NÃO CONCLUÍDO",:error) 

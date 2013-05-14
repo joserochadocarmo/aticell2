@@ -1,14 +1,16 @@
 # coding: utf-8
-class Servico < ActiveRecord::Base
-  
-  attr_accessible :tipos,:status,:nome, :endereco,:telefone,:modelo,:imei,:admin_user_id,:produtos_attributes,:entrega,:created_at
+class Servico < AbstractModel
+    
+  attr_accessible :tipos,:status,:nome, :endereco,:telefone,
+                  :modelo,:imei,:admin_user_id,:produtos_attributes,:entrega,:created_at,
+                  :cpf
 
   belongs_to :admin_user
   has_many :produtos, :dependent => :destroy
   accepts_nested_attributes_for :produtos, :reject_if => :all_blank, :allow_destroy => true
 
   validates_inclusion_of :tipos, :in => %w(ORCAMENTO OS RECIBO GARANTIA),:allow_blank => false
-  validates_inclusion_of :status, :in => %w(CONCLUIDO NAOCONCLUIDO), :allow_blank => true
+  validates_inclusion_of :status, :in => %w(AGUARDANDO CONCLUIDO NAOCONCLUIDO), :allow_blank => true
   validates :nome,
             :presence => true,
             :length => {:maximum => 100}  
@@ -16,6 +18,7 @@ class Servico < ActiveRecord::Base
             :presence => true,
             :length => {:maximum => 100}
 
+  before_create :status_aguardando
   before_save :recalculate_price!
   before_update :entregar?,:recalculate_price!
 
@@ -30,6 +33,10 @@ class Servico < ActiveRecord::Base
     self.total_price = produtos.inject(0.0){|sum, produto| 
       produto.marked_for_destruction? ? sum += 0 : sum += (produto.price*produto.quantidade)
       sum } if produtos.any?
+  end
+
+  def status_aguardando
+    self.status='AGUARDANDO'
   end
 
   def display_name

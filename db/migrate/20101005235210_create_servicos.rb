@@ -2,7 +2,7 @@ class CreateServicos < ActiveRecord::Migration
   def self.up
     create_table :servicos do |t|
       t.string :tipos
-      t.string :status
+      t.string :status,:default => 'AGUARDANDO'
       t.string :nome
       t.string :endereco
       t.string :telefone

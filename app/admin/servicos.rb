@@ -1,18 +1,38 @@
 # coding: utf-8
 ActiveAdmin.register Servico do
+  
   config.sort_order = "created_at_desc"
   actions :all
-  #controller.authorize_resource :class => Servico
-
-  #controller do
-  #  include ActiveAdminCanCan
-  #  include ApplicationHelper
-  #end
- 
-  # add this call - it will show only allowed action items
-  #active_admin_allowed_action_items 
 
   menu :label => "Serviços"
+
+  controller do
+    # def destroy
+    #   destroy! do |success|
+    #     version =Version.where(:item_id => params[:id]).last
+    #     link=view_context.link_to(t("active_admin.undo"), revert_version_path(version,:url => aticell_servicos_path), :method => :post)
+    #     success.html {flash[:notice] = (t("flash.actions.destroy.notice") + " #{link}").to_s.html_safe; redirect_to aticell_servicos_path}
+    #   end
+    # end
+
+    # def create
+    #   create! do |success|
+    #     success.html {flash[:notice] = (t("flash.actions.create.notice") + " #{undo_link(new_aticell_servico_path)}").to_s.html_safe; redirect_to resource_url}
+    #   end
+    # end
+
+    # def update
+    #   update! do |success|
+    #     success.html {flash[:notice] = (t("flash.actions.update.notice") + " #{undo_link}").to_s.html_safe; redirect_to resource_url}
+    #   end
+    # end
+
+    # private
+
+    # def undo_link(url=resource_url)
+    #   view_context.link_to(t("active_admin.undo"), revert_version_path(@servico.versions.scoped.last,:url => url), :method => :post)
+    # end
+  end
 
   filter :nome, :label =>'Nome do cliente'
   filter :status, :as => :select, :collection => proc{status}
@@ -33,9 +53,9 @@ ActiveAdmin.register Servico do
   index do
     column("Nº NOTA", :sortable => :id) {|servico| link_to "##{servico.id} ", aticell_servico_path(servico) }
     column("Nome cliente", :nome, :sortable => :nome){|servico| link_to servico.nome.capitalize, aticell_servico_path(servico) }
-    column("Data emissão", :created_at,:sortable => :created_at){|servico| format_time(servico.created_at.to_time)}
+    column("Data emissão", :created_at,:sortable => :created_at){|servico| servico.created_at.strftime("%d/%m/%Y %H:%M:%S") }
     column("Status",:status,:sortable =>:status){|servico| 
-      if servico.status.blank?
+      if servico.status=="AGUARDANDO"
         status_tag("aguardando") 
       elsif  servico.status=="CONCLUIDO"
         status_tag("CONCLUÍDO",:ok)
@@ -60,6 +80,8 @@ ActiveAdmin.register Servico do
           tr do
             th 'Nome do Cliente:'
               td h2 servico.nome.capitalize
+            th 'CPF/CNPJ:'
+              td h4 servico.cpf
           end
           tr do
             th 'Endereço:'
@@ -78,7 +100,7 @@ ActiveAdmin.register Servico do
               td servico.tipos
             th 'Status:'
               td do
-                if servico.status.blank?
+                if servico.status=='AGUARDANDO'
                   status_tag("aguardando") 
                 elsif  servico.status=="CONCLUIDO"
                   status_tag("CONCLUÍDO",:ok)
@@ -211,8 +233,9 @@ def generate_arquivo(servico)
       pdf.text_box "#{servico.status=='NAOCONCLUIDO' ? EXED_CHECKBOX : EMPTY_CHECKBOX} NÃO CONCLUÍDO", :size => 8,:at => [325, 430]
     end
 
-    pdf.text_box "<b>Data da Emissão:</b> #{servico.created_at.strftime("%m/%d/%Y") }", :size => 11,:at => [5, 400],:inline_format => true
+    pdf.text_box "<b>Data da Emissão:</b> #{servico.created_at.strftime("%d/%m/%Y") }", :size => 11,:at => [5, 400],:inline_format => true
     pdf.text_box "<b>Nome:</b> #{servico.nome.capitalize }", :size => 11,:at => [5, 385],:inline_format => true
+    pdf.text_box "<b>CPF/CNPJ:</b> #{servico.cpf }", :size => 11,:at => [235, 385],:inline_format => true
     pdf.text_box "<b>Endereço:</b> #{servico.endereco }", :size => 11,:at => [5, 370],:inline_format => true
     pdf.text_box "<b>Telefone:</b> #{servico.telefone }", :size => 11,:at => [5, 355],:inline_format => true
     pdf.text_box "<b>Modelo:</b> #{servico.modelo }", :size => 11,:at => [5, 340],:inline_format => true
@@ -220,7 +243,7 @@ def generate_arquivo(servico)
     if servico.data_saida.blank?
       pdf.text_box "<b>Data da Saída:</b> __/____/____", :size => 11,:at => [235, 400],:style =>:bold,:inline_format => true
     else
-      pdf.text_box "<b>Data da Saída:</b> #{servico.data_saida.strftime("%m/%d/%Y") }", :size => 11,:at => [235, 400],:inline_format => true
+      pdf.text_box "<b>Data da Saída:</b> #{servico.data_saida.strftime("%d/%m/%Y") }", :size => 11,:at => [235, 400],:inline_format => true
     end
 
     pdf.move_down 235
@@ -341,8 +364,9 @@ def generate_arquivo(servico)
       pdf.text_box "#{servico.status=='NAOCONCLUIDO' ? EXED_CHECKBOX : EMPTY_CHECKBOX} NÃO CONCLUÍDO", :size => 7,:at => [750, 430]
     end
 
-    pdf.text_box "<b>Data da Emissão:</b> #{servico.created_at.strftime("%m/%d/%Y") }", :size => 11,:at => [435, 400],:inline_format => true
+    pdf.text_box "<b>Data da Emissão:</b> #{servico.created_at.strftime("%d/%m/%Y") }", :size => 11,:at => [435, 400],:inline_format => true
     pdf.text_box "<b>Nome:</b> #{servico.nome.capitalize }", :size => 11,:at => [435, 385],:inline_format => true
+    pdf.text_box "<b>CPF/CNPJ:</b> #{servico.cpf }", :size => 11,:at => [665, 385],:inline_format => true
     pdf.text_box "<b>Endereço:</b> #{servico.endereco }", :size => 11,:at => [435, 370],:inline_format => true
     pdf.text_box "<b>Telefone:</b> #{servico.telefone }", :size => 11,:at => [435, 355],:inline_format => true
     pdf.text_box "<b>Modelo:</b> #{servico.modelo }", :size => 11,:at => [435, 340],:inline_format => true
@@ -350,7 +374,7 @@ def generate_arquivo(servico)
     if servico.data_saida.blank?
       pdf.text_box "<b>Data da Saída:</b> __/____/____", :size => 11,:at => [665, 400],:style =>:bold,:inline_format => true
     else
-      pdf.text_box "<b>Data da Saída:</b> #{servico.data_saida.strftime("%m/%d/%Y") }", :size => 11,:at => [665, 400],:inline_format => true
+      pdf.text_box "<b>Data da Saída:</b> #{servico.data_saida.strftime("%d/%m/%Y") }", :size => 11,:at => [665, 400],:inline_format => true
     end
 
     pdf.move_down pdf.cursor- 140

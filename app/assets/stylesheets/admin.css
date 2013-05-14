@@ -4,11 +4,11 @@
 }
 table.dashboard td { width: 33%; }
 
-form.formtastic fieldset ol li.fl {float: left; margin-right: -6em; width: 40%;}
-
-form.formtastic fieldset ol li.fl1 {float: left; margin-right: -7em; width: 45%;}
-form.formtastic fieldset ol li.fl2 {float: left; margin-right: -1em; width: 25%;}
-form.formtastic fieldset ol li.fl4 {float: left; margin-right: 6em; width: 25%;}
+form.formtastic fieldset ol li.fl {float: left;  width: 30%;}
+form.formtastic fieldset ol li.fl1 {float: left;  width: 26%;}
+form.formtastic fieldset ol li.fl2 {float: left;  width: 20%;}
+form.formtastic fieldset ol li.fl4 {float: left;  width: 25%;}
+form.formtastic fieldset ol li.fl4 {float: left;  width: 15%;}
 
 body.active_admin form input[type="text"], body.active_admin form input[type="password"], body.active_admin form input[type="email"], body.active_admin form input[type="number"], body.active_admin form input[type="url"], body.active_admin form input[type="tel"], body.active_admin form textarea {
     font-size: 13px !important;

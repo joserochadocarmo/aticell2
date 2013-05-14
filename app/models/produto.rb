@@ -1,4 +1,4 @@
-class Produto < ActiveRecord::Base
+class Produto < AbstractModel
   
   belongs_to :servico
   attr_accessor :sub_total

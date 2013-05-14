@@ -8,15 +8,15 @@
 
 
 # inicializa nota
-Servico.create! do |a|
-  a.id =4000
-  a.tipos = 'RECIBO'
-  a.nome = 'Teste 01'
-  a.modelo = 'IPHONE'
-end
+#Servico.create! do |a|
+#  a.id =4000
+#  a.tipos = 'RECIBO'
+#  a.nome = 'Teste 01'
+#  a.modelo = 'IPHONE'
+#end
 
 # Remove nota
-Servico.delete(4000);
+#Servico.delete(4000);
 
 # Create a default admin user
-AdminUser.create!(:email => 'admin@example.com',:username => 'admin',:nome => 'admin', :password => 'admin', :password_confirmation => 'admin',:admin => true)
+#AdminUser.create!(:email => 'tom.jrc@gmail.com',:username => 'admin',:nome => 'admin', :password => 'admin', :password_confirmation => 'admin',:admin => true,:confirmed_at => Time.now)

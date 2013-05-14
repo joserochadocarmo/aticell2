@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130418224921) do
+ActiveRecord::Schema.define(:version => 20130514224048) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -44,8 +44,12 @@ ActiveRecord::Schema.define(:version => 20130418224921) do
     t.string   "nome"
     t.string   "username"
     t.boolean  "admin",                  :default => false
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
   end
 
+  add_index "admin_users", ["confirmation_token"], :name => "index_admin_users_on_confirmation_token", :unique => true
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
@@ -75,11 +79,23 @@ ActiveRecord::Schema.define(:version => 20130418224921) do
     t.decimal  "total_price",   :precision => 8, :scale => 2, :default => 0.0
     t.datetime "created_at",                                                   :null => false
     t.datetime "updated_at",                                                   :null => false
+    t.string   "cpf"
   end
 
   add_index "servicos", ["admin_user_id"], :name => "index_servicos_on_admin_user_id"
   add_index "servicos", ["data_saida"], :name => "index_servicos_on_data_saida"
   add_index "servicos", ["modelo"], :name => "index_servicos_on_modelo"
   add_index "servicos", ["nome"], :name => "index_servicos_on_nome"
+
+  create_table "versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
 end

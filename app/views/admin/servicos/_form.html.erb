@@ -67,6 +67,7 @@
   <%= f.inputs "Dados do novo serviço" do %>
       <%= f.input :tipos,:label=>false,:as =>:horizontal, :collection => tipos %>
       <%= f.input :nome,:wrapper_html => { :class => 'fl' } %>
+      <%= f.input :cpf,:label => 'CPF/CNPJ',:wrapper_html => { :class => 'fl4' } %>
       <%= f.input :endereco,:wrapper_html => { :class => 'fl1'} %>
       <%= f.input :telefone, :wrapper_html => { :class => 'fl2' } %>
       <%= f.input :modelo, :wrapper_html => { :class => 'fl4' } %>
