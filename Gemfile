@@ -7,7 +7,7 @@ gem 'activeadmin', '0.6.0'
 gem 'cancan', '1.6.9'
 gem 'cocoon', '1.1.2'
 gem 'prawn', :git => 'https://github.com/prawnpdf/prawn.git'
-gem 'sqlite3', '1.3.7'
+#gem 'sqlite3', '1.3.7'
 gem "pg", "~> 0.15.1"
 gem 'unicorn'
 gem 'turbolinks'
